@@ -1,7 +1,15 @@
 services:
-  postgres:
-    image: postgres
+  reservations:
+    build:
+      context: .
+      dockerfile: ./apps/reservations/Dockerfile
+      target: development
+    command: pnpm run start:dev reservations
     ports:
-      - 5432:5432
-    environment:
-      POSTGRES_PASSWORD: postgres
+      - 3000:3000
+    volumes:
+      - .:/usr/src/app
+  mongo:
+    image: mongo
+    ports:
+      - 27017:27017
