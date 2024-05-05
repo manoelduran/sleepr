@@ -6,11 +6,11 @@ import { ReservationRepository } from './reservations.repository';
 @Injectable()
 export class ReservationsService {
   constructor(private readonly reservationRepository: ReservationRepository) {}
-  create(createReservationDto: CreateReservationDto) {
+  create(createReservationDto: CreateReservationDto, userId: string) {
     return this.reservationRepository.create({
       ...createReservationDto,
       timestamp: new Date(),
-      userId: '1',
+      userId,
     });
   }
 
