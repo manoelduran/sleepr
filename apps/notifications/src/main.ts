@@ -1,13 +1,13 @@
 import { NestFactory } from '@nestjs/core';
-import { PaymentsModule } from './payments.module';
-import { Logger } from 'nestjs-pino';
-import * as CookieParser from 'cookie-parser';
-import { ValidationPipe } from '@nestjs/common';
+import { NotificationsModule } from './notifications.module';
 import { ConfigService } from '@nestjs/config';
+import * as CookieParser from 'cookie-parser';
 import { Transport } from '@nestjs/microservices';
+import { ValidationPipe } from '@nestjs/common';
+import { Logger } from 'nestjs-pino';
 
 async function bootstrap() {
-  const app = await NestFactory.create(PaymentsModule);
+  const app = await NestFactory.create(NotificationsModule);
   const configService = app.get(ConfigService);
   app.connectMicroservice({
     transport: Transport.TCP,
