@@ -6,8 +6,9 @@ import {
   ValidationPipe,
 } from '@nestjs/common';
 import { PaymentsService } from './payments.service';
-import { CreateChargeDto, JwtAuthGuard } from '@app/common';
+import { JwtAuthGuard } from '@app/common';
 import { MessagePattern, Payload } from '@nestjs/microservices';
+import { PaymentsCreateChargeDto } from './dto/payments-create-charge.dto';
 
 @Controller('payments')
 export class PaymentsController {
@@ -18,7 +19,7 @@ export class PaymentsController {
   @MessagePattern('create_charge')
   // apply validation pipe to message microservice pattern
   @UsePipes(new ValidationPipe())
-  async createCharge(@Payload() data: CreateChargeDto) {
+  async createCharge(@Payload() data: PaymentsCreateChargeDto) {
     return this.paymentsService.createCharge(data);
   }
 }
