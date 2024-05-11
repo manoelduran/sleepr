@@ -2,7 +2,10 @@
 /dist
 /node_modules
 /build
-
+/apps/*/node_modules
+/apps/*/dist
+/e2e/node_modules
+/e2e/dist
 # Logs
 logs
 *.log
