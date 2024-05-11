@@ -2,7 +2,8 @@
 /dist
 /node_modules
 /build
-
+/apps/*/node_modules
+/apps/*/dist
 # Logs
 logs
 *.log

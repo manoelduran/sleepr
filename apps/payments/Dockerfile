@@ -9,10 +9,10 @@ COPY nest-cli.json nest-cli.json
 
 RUN npm install -g pnpm
 
-RUN pnpm install
-
 COPY apps/payments apps/payments
 COPY libs libs
+# install specific dependencies recursively
+RUN pnpm install -r
 #  build application
 RUN pnpm run build payments
 
