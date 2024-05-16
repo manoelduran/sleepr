@@ -1,6 +1,11 @@
 import { Logger, NotFoundException } from '@nestjs/common';
 import { AbstractEntity } from './abstract.entity';
-import { EntityManager, FindOptionsWhere, Repository } from 'typeorm';
+import {
+  EntityManager,
+  FindOptionsRelations,
+  FindOptionsWhere,
+  Repository,
+} from 'typeorm';
 import { QueryDeepPartialEntity } from 'typeorm/query-builder/QueryPartialEntity';
 
 export abstract class AbstractRepository<T extends AbstractEntity<T>> {
@@ -12,8 +17,11 @@ export abstract class AbstractRepository<T extends AbstractEntity<T>> {
   async create(entity: T): Promise<T> {
     return this.entityManager.save(entity);
   }
-  async findOne(where: FindOptionsWhere<T>): Promise<T> {
-    const entity = await this.entityRepository.findOne({ where });
+  async findOne(
+    where: FindOptionsWhere<T>,
+    relations?: FindOptionsRelations<T>,
+  ): Promise<T> {
+    const entity = await this.entityRepository.findOne({ where, relations });
 
     if (!entity) {
       this.logger.warn('Document not found with where', where);

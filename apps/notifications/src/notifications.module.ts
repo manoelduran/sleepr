@@ -12,6 +12,7 @@ import { ConfigModule } from '@nestjs/config';
       isGlobal: true,
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
+        RABBITMQ_URI: Joi.string().required(),
         GOOGLE_OAUTH_CLIENT_ID: Joi.string().required(),
         SMTP_USER: Joi.string().required(),
         GOOGLE_OAUTH_CLIENT_SECRET: Joi.string().required(),

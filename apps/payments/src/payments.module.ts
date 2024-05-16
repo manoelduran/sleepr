@@ -14,6 +14,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
       validationSchema: Joi.object({
         PORT: Joi.number().required(),
         STRIPE_SECRET_KEY: Joi.string().required(),
+        RABBITMQ_URI: Joi.string().required(),
         NOTIFICATIONS_HOST: Joi.string().required(),
         NOTIFICATIONS_PORT: Joi.number().required(),
         GOOGLE_OAUTH_CLIENT_ID: Joi.string().required(),
@@ -27,10 +28,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         name: NOTIFICATIONS_SERVICE,
         // inject the service name from the constants file
         useFactory: (configService: ConfigService) => ({
-          transport: Transport.TCP,
+          transport: Transport.RMQ,
           options: {
-            host: configService.get('NOTIFICATIONS_HOST'),
-            port: configService.get('NOTIFICATIONS_PORT'),
+            urls: [configService.getOrThrow<string>('RABBITMQ_URI')],
+            queue: 'notifications',
           },
         }),
         inject: [ConfigService],
